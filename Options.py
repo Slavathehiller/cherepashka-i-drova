@@ -1,5 +1,5 @@
 class SimpleOptions:
-    ObstacleCount = 5
+    ObstacleCount = 8
     WoodCount = 4
     MoleCount = 1
     SlowMoles = 0

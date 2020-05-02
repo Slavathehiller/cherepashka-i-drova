@@ -31,7 +31,7 @@ class Mole(Zver):
             tryX = tryX - 1
         if direction == Right:
             tryX = tryX + 1
-        return self.map.isFree(tryX, tryY) or self.map.isTurtle(tryX, tryY)
+        return (self.map.isFree(tryX, tryY) or self.map.isTurtle(tryX, tryY)) and not self.map.isHome(tryX, tryY)
 
 
     def NormalAction(self):
