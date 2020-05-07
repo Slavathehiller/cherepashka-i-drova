@@ -1,7 +1,7 @@
 from PILgraphicObject import*
 from Consts import*
 
-class Zver:
+class Zver(PILgraphicObject):
     x = 0
     y = 0
     step = 0
@@ -15,8 +15,6 @@ class Zver:
         self.RightImage = self.DefaultImage
         image = self.BaseImage.transpose(Image.FLIP_LEFT_RIGHT)
         self.LeftImage = ImageTk.PhotoImage(image)
-        #self.CurrentImage = self.RightImage
-
 
     def move(self, direction):
         if direction == Up:
@@ -32,8 +30,19 @@ class Zver:
         self.step = self.step + 1
         print(self.name + " переходит в точку", self.x, self.y)
 
+    def MixImages(self, BackImage, FrontImage):
+        result = BackImage.copy()        
+        result.paste(FrontImage, (0, 0), FrontImage)
+        return ImageTk.PhotoImage(result)
+
     def GetCurrentImage(self):
+        object = self.map.GetStaticObject(self.x, self.y)
         if self.orientation == Left:
+            flipped = self.BaseImage.transpose(Image.FLIP_LEFT_RIGHT)
+            self.LeftImage = self.MixImages(object.BaseImage, flipped)            
             return self.LeftImage
         else:
+            self.RightImage = self.MixImages(object.BaseImage, self.BaseImage)
             return self.RightImage
+
+    

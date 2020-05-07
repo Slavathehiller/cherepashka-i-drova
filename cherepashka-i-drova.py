@@ -13,7 +13,7 @@ menuFile.add_command(label="Выход", command=lambda: exit(0))
 
 options = SimpleOptions()
 
-image = Image.open('grass.gif')
+image = Image.open('grass.png')
 grassImage = ImageTk.PhotoImage(image)
 
 VisualMap = None
@@ -41,7 +41,7 @@ def Newgame():
         frame = Frame(VisualMap)
         frame.pack(side=TOP)
         for j in range(options.sizeX):
-            square = Label(frame)
+            square = Label(frame, bd=0)
             square.pack(side=LEFT)
             Line.append(square)
         Map.append(Line)
@@ -53,8 +53,8 @@ menuGame.add_command(label="Начать игру", command=Newgame)
 mainmenu.add_cascade(label="Файл", menu=menuFile)
 mainmenu.add_cascade(label="Игра", menu=menuGame)
 
-winimage = ImageTk.PhotoImage(Image.open('win.gif'))
-loseimage = ImageTk.PhotoImage(Image.open('lose.gif'))
+winimage = ImageTk.PhotoImage(Image.open('win.png'))
+loseimage = ImageTk.PhotoImage(Image.open('lose.png'))
 
 gameEnded = False
 
@@ -102,11 +102,7 @@ def CheckGameState(state):
 
 
 def placeObject(x, y, object):
-    if object == None:
-        nowimage = grassImage
-    else:
-        nowimage = object.GetCurrentImage()
-
+    nowimage = object.GetCurrentImage()
     Map[y][x].config(image=nowimage)
 
 

@@ -1,7 +1,7 @@
 from Consts import*
 from zver import*
-from cherepashka import*
 from random import*
+from PILgraphicObject import*
 
 class Mole(Zver):
     name = "Крот"
@@ -11,7 +11,7 @@ class Mole(Zver):
     map = None
 
     def __init__(self, map):
-        self.SetImage('krot.gif')
+        self.SetImage('krot.png')
         self.map = map
 
     def move(self, direction):

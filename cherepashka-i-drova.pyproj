@@ -22,6 +22,15 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="background.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="background_grass.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="bober.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="cherepashka-i-drova.py" />
     <Compile Include="cherepashka.py" />
     <Compile Include="Consts.py" />
