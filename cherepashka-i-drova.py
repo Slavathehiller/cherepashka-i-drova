@@ -1,3 +1,4 @@
+from Consts import*
 from tkinter import*
 from cherepashka import*
 from mapper import*
@@ -6,15 +7,13 @@ from PIL import Image, ImageTk
 window = Tk()
 window.title("Черепашка и дрова")
 window.geometry("800x600")
+window.iconbitmap('turtle.ico')
 mainmenu = Menu(window)
 window.config(menu=mainmenu)
 menuFile = Menu(mainmenu, tearoff=0)
 menuFile.add_command(label="Выход", command=lambda: exit(0))
 
 options = SimpleOptions()
-
-image = Image.open('grass.png')
-grassImage = ImageTk.PhotoImage(image)
 
 VisualMap = None
 
@@ -48,10 +47,52 @@ def Newgame():
     mapper.createNewMap()
     drawMap()
 
+def OptionsOK(W, DLC, SMV):
+    options.difficult = DLC.get()
+    options.SlowMoles = SMV.get()
+    W.destroy()
+
+def SetOptions():
+    OptionsWindow = Toplevel(window)
+    OptionsWindow.geometry('300x180')
+    OptionsWindow.title("Настройки игры")
+
+    DifficultLevelChoise = IntVar()
+
+    lbDifficultLevel = Label(OptionsWindow, text="Уровень сложности:", padx=15, pady=10)
+    lbDifficultLevel.grid(row=0, column=0, sticky=W)
+
+    rbEasy = Radiobutton(OptionsWindow, text="Легкий", value=Easy, variable=DifficultLevelChoise)
+    rbNormal = Radiobutton(OptionsWindow, text="Нормальный", value=Normal, variable=DifficultLevelChoise)
+    rbHard = Radiobutton(OptionsWindow, text="Сложный", value=Hard, variable=DifficultLevelChoise)
+
+    DifficultLevelChoise.set(options.difficult)
+
+    rbEasy.grid(row=1, column=0, sticky=W, padx=4, pady=2)
+    rbNormal.grid(row=2, column=0, sticky=W, padx=4, pady=2)
+    rbHard.grid(row=3, column=0, sticky=W, padx=4, pady=2)
+
+    SlowMolesVar = IntVar()
+    SlowMolesVar.set(options.SlowMoles)
+
+    cbSlowMoles = Checkbutton(OptionsWindow, text="Медленные кроты", variable=SlowMolesVar)
+    cbSlowMoles.grid(row=0, column=1, sticky=W, padx=4, pady=2)
+
+    OKbutton = Button(OptionsWindow, text="Ok", height=1, width=6)
+    OKbutton.grid(row=4, column=0, sticky=E, padx=30, pady=15)
+    OKbutton.bind("<Button-1>", lambda event: OptionsOK(OptionsWindow, DifficultLevelChoise, SlowMolesVar))
+    
+    Cancelbutton = Button(OptionsWindow, text="Cancel", height=1, width=6)
+    Cancelbutton.grid(row=4, column=1, padx=30, pady=15) 
+    Cancelbutton.bind("<Button-1>", lambda event: OptionsWindow.destroy())
+
 menuGame = Menu(mainmenu, tearoff=0)
 menuGame.add_command(label="Начать игру", command=Newgame)
+menuGame.add_command(label="Настройки", command=SetOptions)
 mainmenu.add_cascade(label="Файл", menu=menuFile)
 mainmenu.add_cascade(label="Игра", menu=menuGame)
+
+
 
 winimage = ImageTk.PhotoImage(Image.open('win.png'))
 loseimage = ImageTk.PhotoImage(Image.open('lose.png'))
