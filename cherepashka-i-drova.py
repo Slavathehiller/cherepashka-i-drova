@@ -20,6 +20,98 @@ VisualMap = None
 turtle = None
 mapper = None
 
+turtleImage = None
+moleImage = None
+woodImage = None
+obstacleImage = None
+beaverImage = None
+
+def menuHelp():
+    global turtleImage
+    global moleImage
+    global woodImage
+    global obstacleImage
+    global beaverImage
+
+    helpWindow = Toplevel()
+    helpWindow.geometry('450x385')
+    helpWindow.title('Помощь')
+    helpWindow.iconbitmap('turtle.ico')
+    welcomeLabel = Label(helpWindow, text="Добро пожаловать в Черепашка и дрова")
+    welcomeLabel.pack(anchor=W)
+
+    help = "Цель игры  - построить домик черепашке.\nДля этого нужно собирать бревна находящиеся на карте.\nВсего для постройки домика вам понадобится 3 связки бревен.\nИ стоит учесть что, черепашка за раз может унести всего одну свзяку."
+    goalLabel = Label(helpWindow, text=help, justify=LEFT)
+    goalLabel.pack(anchor=W)
+    image = Image.open('turtle.png').convert('RGBA')
+    turtleImage = ImageTk.PhotoImage(image)
+    turtleFrame = Frame(helpWindow)
+    turtleFrame.pack(anchor=W)
+
+    turtleLabel = Label(turtleFrame)
+    turtleLabel.config(image=turtleImage)
+    turtleLabel.pack(anchor=W, side=LEFT)
+
+    turtleAbout = "- Черепашка, которой ты будешь управлять в процессе игры."
+    turtleAboutLabel = Label(turtleFrame, text=turtleAbout, padx="20")
+    turtleAboutLabel.pack(side=LEFT)
+
+    krotImage = Image.open('krot.png').convert('RGBA')
+    moleImage = ImageTk.PhotoImage(krotImage)
+    moleFrame = Frame(helpWindow)
+    moleFrame.pack(anchor=W)
+
+    moleLabel = Label(moleFrame)
+    moleLabel.config(image=moleImage)
+    moleLabel.pack(anchor=W, side=LEFT)
+
+    moleAbout = "- Саблезубый крот, он тебе так просто построить дом не даст,\nон будет тебя искать но он слеп.\nГлавное успевай убегать, а то нюх у него неплохо развит!"
+    moleAboutLabel = Label(moleFrame, text=moleAbout, justify=LEFT, padx="10")
+    moleAboutLabel.pack(side=LEFT)
+
+    boberImage = Image.open('bober.png').convert('RGBA')
+    beaverImage = ImageTk.PhotoImage(boberImage)
+    beaverFrame = Frame(helpWindow)
+    beaverFrame.pack(anchor=W)
+
+    beaverLabel = Label(beaverFrame)
+    beaverLabel.config(image=beaverImage)
+    beaverLabel.pack(anchor=W, side=LEFT)
+
+    beaverAbout = "- Трусливый бобер, начинает убегать при твоем приближении.\nНаткнувшись на дерево, бобер его уничтожает,\nпосле чего появятся связка бревен."
+    beaverAboutLabel = Label(beaverFrame, text=beaverAbout, justify=LEFT, padx="10")
+    beaverAboutLabel.pack(side=LEFT)
+
+    brevnaImage = Image.open('wood.png').convert('RGBA')
+    woodImage = ImageTk.PhotoImage(brevnaImage)
+    woodFrame = Frame(helpWindow)
+    woodFrame.pack(anchor=W)
+
+    woodLabel = Label(woodFrame)
+    woodLabel.config(image=woodImage)
+    woodLabel.pack(anchor=W, side=LEFT)
+
+    woodAbout = "- Связка бревен, материал для постройки дома."
+    woodAboutLabel = Label(woodFrame, text=woodAbout, justify=LEFT, padx="10")
+    woodAboutLabel.pack(side=LEFT)
+
+    OImage = Image.open('tree.png').convert('RGBA')
+    obstacleImage = ImageTk.PhotoImage(OImage)
+    obstacleFrame = Frame(helpWindow)
+    obstacleFrame.pack(anchor=W)
+
+    obstacleLabel = Label(obstacleFrame)
+    obstacleLabel.config(image=obstacleImage)
+    obstacleLabel.pack(anchor=W, side=LEFT)
+
+    obstacleAbout = "- Препятствие в виде дерева, непроходимое для всех, кроме бобра."
+    obstacleAboutLabel = Label(obstacleFrame, text=obstacleAbout, justify=LEFT, padx="10")
+    obstacleAboutLabel.pack(side=LEFT)
+
+    Closebutton = Button(helpWindow, text="Закрыть", height=1, width=6)
+    Closebutton.bind("<Button-1>", lambda event: helpWindow.destroy())
+    Closebutton.pack() 
+
 def Newgame():
     global gameEnded, Map, VisualMap, turtle, mapper
     gameEnded = False
@@ -56,6 +148,7 @@ def SetOptions():
     OptionsWindow = Toplevel(window)
     OptionsWindow.geometry('300x180')
     OptionsWindow.title("Настройки игры")
+    OptionsWindow.iconbitmap('turtle.ico')
 
     DifficultLevelChoise = IntVar()
 
@@ -91,6 +184,7 @@ menuGame.add_command(label="Начать игру", command=Newgame)
 menuGame.add_command(label="Настройки", command=SetOptions)
 mainmenu.add_cascade(label="Файл", menu=menuFile)
 mainmenu.add_cascade(label="Игра", menu=menuGame)
+mainmenu.add_cascade(label="?", command=menuHelp)
 
 
 
