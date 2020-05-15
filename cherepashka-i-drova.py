@@ -10,8 +10,6 @@ window.geometry("800x600")
 window.iconbitmap('turtle.ico')
 mainmenu = Menu(window)
 window.config(menu=mainmenu)
-menuFile = Menu(mainmenu, tearoff=0)
-menuFile.add_command(label="Выход", command=lambda: exit(0))
 
 options = SimpleOptions()
 
@@ -26,7 +24,31 @@ woodImage = None
 obstacleImage = None
 beaverImage = None
 
-def menuHelp():
+def menuAbout():
+    global turtleImage
+    aboutWindow = Toplevel()
+    aboutWindow.geometry('460x180')
+    aboutWindow.title('О программе')
+    aboutWindow.iconbitmap('turtle.ico')
+
+    TopLabel = Label(aboutWindow, text="Черепашка и дрова")
+    TopLabel.pack(anchor=N)
+    turtleFrame = Frame(aboutWindow)
+    turtleFrame.pack(anchor=W)
+    image = Image.open('turtle.ico')
+    turtleImage = ImageTk.PhotoImage(image)
+    turtleLabel = Label(turtleFrame)
+    turtleLabel.config(image=turtleImage)
+    turtleLabel.pack(anchor=W, side=LEFT)
+    creators = "Разработчики: Папа, Паша\nАктер озвучки: Мама\nИгра разработана в программе Microsoft Visual Studio\nНа версии Python 3.7\nCopyright © Python Projects 2019-2020"
+    creatorsLabel = Label(turtleFrame, text=creators, justify=LEFT)
+    creatorsLabel.pack(side=LEFT)
+    Closebutton = Button(aboutWindow, text="Закрыть", height=1, width=6)
+    Closebutton.bind("<Button-1>", lambda event: aboutWindow.destroy())
+    Closebutton.pack() 
+
+
+def menuInstruction():
     global turtleImage
     global moleImage
     global woodImage
@@ -35,7 +57,7 @@ def menuHelp():
 
     helpWindow = Toplevel()
     helpWindow.geometry('450x385')
-    helpWindow.title('Помощь')
+    helpWindow.title('Инструкция')
     helpWindow.iconbitmap('turtle.ico')
     welcomeLabel = Label(helpWindow, text="Добро пожаловать в Черепашка и дрова")
     welcomeLabel.pack(anchor=W)
@@ -179,13 +201,19 @@ def SetOptions():
     Cancelbutton.grid(row=4, column=1, padx=30, pady=15) 
     Cancelbutton.bind("<Button-1>", lambda event: OptionsWindow.destroy())
 
+menuFile = Menu(mainmenu, tearoff=0)
+menuFile.add_command(label="Выход", command=lambda: exit(0))
+mainmenu.add_cascade(label="Файл", menu=menuFile)
+
 menuGame = Menu(mainmenu, tearoff=0)
 menuGame.add_command(label="Начать игру", command=Newgame)
 menuGame.add_command(label="Настройки", command=SetOptions)
-mainmenu.add_cascade(label="Файл", menu=menuFile)
 mainmenu.add_cascade(label="Игра", menu=menuGame)
-mainmenu.add_cascade(label="?", command=menuHelp)
 
+menuHelp = Menu(mainmenu, tearoff=0)
+menuHelp.add_command(label="О программе", command=menuAbout)
+menuHelp.add_command(label="Инструкция", command=menuInstruction)
+mainmenu.add_cascade(label="Помощь", menu=menuHelp)
 
 
 winimage = ImageTk.PhotoImage(Image.open('win.png'))
