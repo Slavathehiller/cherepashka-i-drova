@@ -4,7 +4,7 @@ block_cipher = None
 
 
 a = Analysis(['cherepashka-i-drova.py'],
-             pathex=['\\venv\\Lib\\site-packages', 'd:\\Python Projects\\cherepashka-i-drova'],
+             pathex=['E:\\Python Projects\\cherepashka-i-drova'],
              binaries=[],
              datas=[],
              hiddenimports=[],
@@ -30,4 +30,4 @@ exe = EXE(pyz,
           upx=True,
           upx_exclude=[],
           runtime_tmpdir=None,
-          console=True , icon='turtle.ico')
+          console=False , icon='turtle.ico')
