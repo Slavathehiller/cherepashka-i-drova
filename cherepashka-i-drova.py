@@ -8,6 +8,7 @@ window.title("Черепашка и дрова")
 window.geometry("800x600")
 mainmenu = Menu(window)
 window.config(menu=mainmenu)
+window.iconbitmap('turtle.ico')
 menuFile = Menu(mainmenu, tearoff=0)
 menuFile.add_command(label="Выход", command=lambda: exit(0))
 
